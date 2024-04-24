@@ -1,17 +1,17 @@
 import React, { useContext, createContext } from 'react';
+import axios from 'axios';
 
 import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
-import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract('0xf59A1f8251864e1c5a6bD64020e3569be27e6AA9');
-  const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
+  
+  const contract = null;
 
-  const address = useAddress(); 
-  const connect = useMetamask();
+  const address = null; 
+  
 
   const publishCampaign = async (form) => {
     try {
@@ -33,20 +33,24 @@ export const StateContextProvider = ({ children }) => {
   }
 
   const getCampaigns = async () => {
-    const campaigns = await contract.call('getCampaigns');
-
-    const parsedCampaings = campaigns.map((campaign, i) => ({
-      owner: campaign.owner,
-      title: campaign.title,
-      description: campaign.description,
-      target: ethers.utils.formatEther(campaign.target.toString()),
-      deadline: campaign.deadline.toNumber(),
-      amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
-      image: campaign.image,
-      pId: i
-    }));
-
-    return parsedCampaings;
+    try {
+      const response = await axios.get('http://localhost:8000/api/campaign/getall');
+      const campaigns = response.data;
+      const parsedCampaigns = campaigns.map((campaign) => ({
+        owner: campaign.owner,
+        title: campaign.title,
+        description: campaign.description,
+        target: campaign.target,
+        deadline: campaign.deadline,
+        amountCollected: campaign.amountCollected,
+        image: campaign.image,
+        pId: campaign._id
+      }));
+      return parsedCampaigns;
+    } catch (error) {
+      console.error('Error fetching campaigns:', error);
+      throw error;
+    }
   }
 
   const getUserCampaigns = async () => {
@@ -85,7 +89,6 @@ export const StateContextProvider = ({ children }) => {
       value={{ 
         address,
         contract,
-        connect,
         createCampaign: publishCampaign,
         getCampaigns,
         getUserCampaigns,
