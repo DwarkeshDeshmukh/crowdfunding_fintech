@@ -30,7 +30,7 @@ const CreateCampaign = () => {
     checkIfImage(form.image, async (exists) => {
       if(exists) {
         setIsLoading(true)
-        await createCampaign({ ...form, target: ethers.utils.parseUnits(form.target, 18)})
+        await createCampaign({ ...form})
         setIsLoading(false);
         navigate('/');
       } else {
@@ -98,7 +98,7 @@ const CreateCampaign = () => {
         <FormField 
             labelName="Campaign image *"
             placeholder="Place image URL of your campaign"
-            inputType="url"
+            inputType="text"
             value={form.image}
             handleChange={(e) => handleFormFieldChange('image', e)}
           />

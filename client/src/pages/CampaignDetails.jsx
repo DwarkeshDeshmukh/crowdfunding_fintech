@@ -25,16 +25,16 @@ const CampaignDetails = () => {
   }
 
   useEffect(() => {
-    if(contract) fetchDonators();
-  }, [contract, address])
+     fetchDonators();
+  }, [address])
 
   const handleDonate = async () => {
     setIsLoading(true);
 
     await donate(state.pId, amount); 
-
-    navigate('/')
+    window.location.reload();
     setIsLoading(false);
+    
   }
 
   return (
@@ -106,9 +106,9 @@ const CampaignDetails = () => {
             </p>
             <div className="mt-[30px]">
               <input 
-                type="number"
-                placeholder="ETH 0.1"
-                step="0.01"
+                type="text"
+                placeholder="INR"
+                step="10"
                 className="w-full py-[10px] sm:px-[20px] px-[15px] outline-none border-[1px] border-[#3a3a43] bg-transparent font-epilogue text-white text-[18px] leading-[30px] placeholder:text-[#4b5264] rounded-[10px]"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
