@@ -54,8 +54,6 @@ router.post('/donate', async (req, res) => {
         return res.status(404).json({ error: 'Campaign not found' });
       }
 
-      // use payment gateway
-
   
       // Convert the amount collected and donation amount to numbers and then back to strings for storage
       campaign.amountCollected = (parseFloat(campaign.amountCollected) + parseFloat(amount)).toString();

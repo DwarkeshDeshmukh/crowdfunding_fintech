@@ -9,6 +9,7 @@
     "deploy": "yarn build && npx thirdweb@latest upload dist"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^3.3.0",
     "@thirdweb-dev/react": "^3",
     "@thirdweb-dev/sdk": "^3",
     "axios": "^1.6.8",

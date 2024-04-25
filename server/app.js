@@ -21,10 +21,12 @@ app.use(bodyParser.json());
 // Importing routes
 const user = require("./api/userAuthntication");
 const campaign = require('./api/campaign');
+const donate = require('./api/donate');
 
 // Using Routes
 app.use('/api/users', user);
 app.use('/api/campaign',campaign);
+app.use('/',donate);
 
 
 // Coonect DataBase
