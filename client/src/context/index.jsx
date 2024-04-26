@@ -1,12 +1,10 @@
 import React, { useContext, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-
-import { ethers } from 'ethers';
-
 const StateContext = createContext();
-
 export const StateContextProvider = ({ children }) => {
+
+  const navigate = useNavigate();
 
   const contract = null;
 
@@ -40,7 +38,7 @@ export const StateContextProvider = ({ children }) => {
         description: campaign.description,
         target: campaign.target,
         deadline: campaign.deadline,
-        amountCollected: campaign.amountCollected,
+        amountCollected: (campaign.amountCollected).toString(),
         image: campaign.image,
         pId: campaign._id
       }));
@@ -63,102 +61,66 @@ export const StateContextProvider = ({ children }) => {
     return filteredCampaigns;
   }
 
-
-
-
-
-
-
   // PID is campaign id
+
+  const initPayment = (data, pid, amount) =>{
+    const options = {
+      key:"rzp_test_Bq6H5OBCpA4XMl",
+      amount: data.amount,
+      currency: data.currency,
+      description: "Test Transaction",
+      order_id: data.id,
+      handler: async ()=>{
+        try {
+          const apiUrl = "http://localhost:8000/api/campaign/donate";
+          const response = await axios.post(apiUrl,{amount:amount, userId:address, pid:pid})
+          if(response.data.success){
+            console.log("Payment done data updated")
+            navigate(`/campaign-details/${pid}`)
+            window.location.reload();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+
+      },
+      theme: {
+        color:"#3399cc",
+      },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
 
   const donate = async (pId, amount) => {
     try {
-      const response = await fetch('http://localhost:8000/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          amount,
-          userId: address, // Include user ID here
-          currency: 'INR',
-          pid: pId
-        })
-      });
-  
-      const order = await response.json();
-  
-      var option = {
-        key: "rzp_test_Bq6H5OBCpA4XMl", 
-        amount,
-        currency: 'INR',
-        name: "Web Codder",
-        description: "Test Transaction",
-        image: "https://i.ibb.co/5Y3m33n/test.png",
-        order_id: order.id,
-        prefill: {
-          name: "Web Coder", 
-          email: "webcoder@example.com",
-          contact: "9000000000", 
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-  
-      var rzp1 = new Razorpay(option);
-      rzp1.open();
-  
-      rzp1.on("payment.failed", function(response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-      });
-  
-      rzp1.on("payment.success", function(response) {
-        
-        console.log("Payment successful", response);
-      });
-  
+
+      const donateUrl = "http://localhost:8000/create-checkout-session";
+      const {data} = await axios.post(donateUrl, {amount:amount, userId:address, pid:pId});
+      console.log(data)
+      const Data = data.data;
+      initPayment(Data, pId, amount);
+      return "true";
     } catch (error) {
       console.error('Error donating:', error);
-      throw error; // Rethrow the error to handle it outside of the function
+      throw error; 
     }
   };
   
-
-
-
-
-
-
-
-
-
-
-
-
   async function getDonations(pId) {
     try {
       const response = await axios.get(`http://localhost:8000/api/campaign/donations/${pId}`);
 
-      // Extract the parsed donations from the response data
+      
       const parsedDonations = response.data;
 
       return parsedDonations;
     } catch (error) {
       console.error('Error fetching donations:', error);
-      throw error; // You can handle or rethrow the error as needed
+      throw error; 
     }
   }
-
 
   return (
     <StateContext.Provider

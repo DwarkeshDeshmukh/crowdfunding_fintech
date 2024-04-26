@@ -7,15 +7,13 @@ const UserModel = require('../model/userModel');
 // Create a new campaign document
 router.post('/create', async (req, res) => {
     try {
-        // Extracting the required fields from the request body
+        
         const { owner, title, description, target, deadline, image } = req.body;
 
-        // Checking if all required fields are present
         if (!owner || !title || !description || !target || !deadline || !image) {
             return res.status(400).json({ error: 'All fields are required' });
         }
 
-        // Creating a new campaign document
         const newCampaign = await CampaignModel.create({
             owner,
             title,
@@ -31,6 +29,7 @@ router.post('/create', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
 
 // Get all campaign documents
 router.get('/getall', async (req, res) => {
@@ -54,15 +53,14 @@ router.post('/donate', async (req, res) => {
         return res.status(404).json({ error: 'Campaign not found' });
       }
 
-  
-      // Convert the amount collected and donation amount to numbers and then back to strings for storage
-      campaign.amountCollected = (parseFloat(campaign.amountCollected) + parseFloat(amount)).toString();
+      campaign.amountCollected = campaign.amountCollected + parseFloat(amount);
       campaign.donators.push(userId);
-      campaign.donations.push(amount); // Push the donation amount as it is
+      campaign.donations.push(amount); 
   
       await campaign.save();
   
-      return res.json({ message: 'Donation successful', campaign });
+      res.json({ success:true, message: 'Donation successful', campaign });
+      return
     } catch (error) {
       console.error('Error donating:', error);
       return res.status(500).json({ error: 'Internal server error' });

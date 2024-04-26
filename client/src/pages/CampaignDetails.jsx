@@ -11,6 +11,7 @@ const CampaignDetails = () => {
   const { id } = useParams();
   const { state: urlState } = useLocation();
 
+
   useEffect(() => {
     const fetchDataAndFilter = async () => {
       try {
@@ -25,7 +26,7 @@ const CampaignDetails = () => {
     if (!state && urlState) {
       setState(urlState); 
     } else if (!state) {
-      fetchDataAndFilter(); 
+      fetchDataAndFilter();
     }
   }, [id, state, urlState, getCampaigns]);
 
@@ -47,12 +48,13 @@ const CampaignDetails = () => {
 
   const handleDonate = async () => {
     setIsLoading(true);
-    await donate(state.pId, amount * 100);
+    const res = await donate(state.pId, amount);
+    console.log('response is',res);
     setIsLoading(false);
   }
 
   if (!state) {
-    return <Loader />; // Return loader if state is null
+    return <Loader />; 
   }
 
   return (

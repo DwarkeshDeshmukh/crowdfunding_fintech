@@ -23,8 +23,8 @@ const CampaignSchema = new Schema({
         required: true
     },
     amountCollected: {
-        type: String,
-        default :"0"
+        type: Number,
+        default :0
     },
     image: {
         type: String,
