@@ -1,0 +1,92 @@
+Sub Fintech2()
+
+
+    ' Create a new presentation
+    Dim ppApp As PowerPoint.Application
+    Set ppApp = New PowerPoint.Application
+    Dim ppPres As PowerPoint.Presentation
+    Set ppPres = ppApp.Presentations.Add
+
+    ' Add a title slide
+    Dim ppSlideTitle As PowerPoint.Slide
+    Set ppSlideTitle = ppPres.Slides.Add(1, ppLayoutTitle)
+    ppSlideTitle.Shapes.Title.TextFrame.TextRange.Text = "Crowd Kindness: Amplifying Your Impact"
+
+    ' About CrowdKindess
+    Dim ppSlidePetition As PowerPoint.Slide
+    Set ppSlidePetition = ppPres.Slides.Add(2, ppLayoutTitleOnly)
+    ppSlidePetition.Shapes.Title.TextFrame.TextRange.Text = "About CrowdKindness"
+    ppSlidePetition.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "CrowdKindness is a crowdfunding platform that enables individuals, groups, organizations to raise funds for a wide range of personal, charitable, and community- oriented causes. This platform provides a digital space where donors and fundraisers can connect, collaborate, and contribute to meaningful causes, ranging from personal emergencies to large-scale humanitarian efforts. Our website offers a comprehensive platform that caters to a diverse range of users, from donors looking to contribute to meaningful causes to fundraisers seeking support for their initiatives. With robust features and secure payment methods, our platform empowers users to engage in philanthropy, manage donations, and effect positive change in their communities."
+
+    ' Motivation
+    Dim ppSlideDonation As PowerPoint.Slide
+    Set ppSlideDonation = ppPres.Slides.Add(3, ppLayoutTitleOnly)
+    ppSlideDonation.Shapes.Title.TextFrame.TextRange.Text = "Motivation"
+    ppSlideDonation.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "The motivation behind our project stems from a deep-seated belief in the transformative power of collective giving and the potential to effect positive change through technology. In today's interconnected world, we are presented with unprecedented opportunities to connect with and support causes that matter to us, yet navigating the complexities of traditional fundraising can be daunting. Our project seeks to bridge this gap by providing a user-friendly and inclusive platform that empowers individuals and organizations to rally support for their initiatives, amplify their voices, and make a tangible impact on the causes they care about. By harnessing the reach and accessibility of the internet, we aim to democratize philanthropy and create a space where anyone, regardless of background or resources, can become a catalyst for change."
+
+    ' Objectives
+    Dim ppSlideYouth As PowerPoint.Slide
+    Set ppSlideYouth = ppPres.Slides.Add(4, ppLayoutTitleOnly)
+    ppSlideYouth.Shapes.Title.TextFrame.TextRange.Text = "Objectives"
+    ppSlideYouth.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "1.	Streamline Fundraising Processes.	2.	Expand Reach and Accessibility.		3.	Enhance Donor Engagement.	4.	Ensure Security and Transparency.	5.	Promote Social Good."
+
+    ' Project Scope
+    Dim ppSlideCommunity As PowerPoint.Slide
+    Set ppSlideCommunity = ppPres.Slides.Add(5, ppLayoutTitleOnly)
+    ppSlideCommunity.Shapes.Title.TextFrame.TextRange.Text = "Project Scope"
+    ppSlideCommunity.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "Using this platform users can create fundraising campaigns for various purposes, including personal emergencies, medical expenses, educational pursuits, charitable projects, and community initiatives. The platform also facilitates secure donation processing through multiple payment methods, including credit/debit cards, and other online payment platforms. Fundraisers also have access to tools for managing their campaigns, including updating campaign details, communicating with donors, and tracking fundraising progress. Robust security measures are implemented to protect user data and financial transactions, and transparency protocols ensure accountability and trustworthiness in campaign management."
+
+    ' System Design
+    Dim ppSlideSecurity As PowerPoint.Slide
+    Set ppSlideSecurity = ppPres.Slides.Add(6, ppLayoutTitleOnly)
+    ppSlideSecurity.Shapes.Title.TextFrame.TextRange.Text = "System Design"
+    ppSlideSecurity.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "The donation website utilizes the MERN stack, comprising MongoDB, Express.js, React.js, and Node.js, for its architecture. On the front end, React.js powers an intuitive user interface with components for campaign creation, donation processing, and user dashboards. The backend, built with Node.js and Express.js, handles client-server communication, authentication, and business logic, while MongoDB serves as the database for storing user profiles, campaigns, and transactions. Payment gateways such as PayPal or Stripe are integrated for secure donation processing. The system is hosted on a cloud platform for scalability and reliability, with Docker containers ensuring deployment consistency. Security measures include HTTPS encryption, JWT-based authentication, and data encryption. Monitoring tools like Prometheus and Grafana provide insights into system performance, while centralized logging facilitates auditing and troubleshooting."
+
+    ' Modules
+    Dim ppSlideModules As PowerPoint.Slide
+    Set ppSlideModules = ppPres.Slides.Add(7, ppLayoutTitleOnly)
+    ppSlideModules.Shapes.Title.TextFrame.TextRange.Text = "Modules"
+    ppSlideModules.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "1. User Authentication: User authentication is a critical module within the donation website, facilitating secure access to the platform's features. 		2. Campaign Management: The campaign management module serves as the backbone of the donation website, empowering users to create, customize, and manage fundraising campaigns effortlessly.		3. Donation Processing: At the heart of the donation website lies the donation processing module, which facilitates secure and efficient handling of online transactions."
+
+    ' Tools and Technologies
+    Dim ppSlideTools As PowerPoint.Slide
+    Set ppSlideTools = ppPres.Slides.Add(8, ppLayoutTitleOnly)
+    ppSlideTools.Shapes.Title.TextFrame.TextRange.Text = "Tools and Technologies"
+    ppSlideTools.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "•	FRONTEND : React.js, Redux Toolkit, Styled Components		•	BACKEND : Node.js, Express.js, JWT Token		•	DATABASE : MongoDB		•	PAYMENT GATEWAY - RazorPay"
+
+    ' Outcome
+    Dim ppSlideOutcomes As PowerPoint.Slide
+    Set ppSlideOutcomes = ppPres.Slides.Add(9, ppLayoutTitleOnly)
+    ppSlideOutcomes.Shapes.Title.TextFrame.TextRange.Text = "Outcome"
+    ppSlideOutcomes.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "The integration of these tools and technologies culminated in a robust and user-friendly donation website. Users can seamlessly navigate intuitive interfaces crafted with React.js and Material UI, while Redux Toolkit ensures efficient state management for a smooth user experience. The backend, powered by Node.js and Express.js, securely handles requests using JWT tokens for authentication. MongoDB serves as a reliable database for storing user data and campaign details. This cohesive implementation results in a platform that facilitates charitable giving and fosters a sense of community engagement."
+
+    ' Conclusion
+    Dim ppSlideConclusion As PowerPoint.Slide
+    Set ppSlideConclusion = ppPres.Slides.Add(10, ppLayoutTitleOnly)
+    ppSlideConclusion.Shapes.Title.TextFrame.TextRange.Text = "Conclusion"
+    ppSlideConclusion.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "In conclusion, the development of the donation website has been a significant endeavor aimed at creating a platform that facilitates charitable giving and fosters community engagement. By leveraging a modern tech stack including React.js, Node.js, and MongoDB, we have successfully built a robust and user-friendly platform. The integration of tools such as Material UI and Redux Toolkit ensures a seamless user experience, while JWT token authentication enhances security. Through this project, we have not only provided users with a convenient way to contribute to charitable causes but also created a sense of community and solidarity. Moving forward, we are committed to further enhancing the platform's functionality, scalability, and accessibility to continue making a positive impact on society."
+
+    ' Applications
+    Dim ppSlideApplication As PowerPoint.Slide
+    Set ppSlideApplication = ppPres.Slides.Add(11, ppLayoutTitleOnly)
+    ppSlideApplication.Shapes.Title.TextFrame.TextRange.Text = "Applications"
+    ppSlideApplication.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 700, 200).TextFrame.TextRange.Text = _
+        "1. Charitable Organizations		2. Individual Fundraisers		3. Community Groups		4. Educational Institutions		5. Businesses		6. Event Organizers		7. Individual Donors		8. Volunteer Groups"
+
+    ' Ending Page
+    Dim ppSlideEnd As PowerPoint.Slide
+    Set ppSlideEnd = ppPres.Slides.Add(12, ppLayoutTitleOnly)
+    ppSlideEnd.Shapes.Title.TextFrame.TextRange.Text = "THANK YOU"
+
+
+End Sub
+\
